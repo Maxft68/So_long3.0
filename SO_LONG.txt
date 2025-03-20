@@ -1,0 +1,22 @@
+verif rectangularite de la map OK
+gnl compter nbre de lignes de la map pour malloc le char ** OK
+stocker x et y du player OK 
+verif contour murs  OK
+verif <= 1 collectible == 1porte  == 1joueur et pas + ET seulement caractere autorise OK
+compter nb de collectible  OK
+si apres flood fill nb de collectible == et si porte accesible a partir du joueur 
+verif porte accesible
+si porte trouver et tout les collectible alors map valide sinon tout parcourir compter une seule fois les collectible et la porte, marquer les emplacement deja passer, !!!! flood fill dans une copie de la map !!
+
+comprendre minilibx
+
+
+si erreur de map : "Error\n" suivi d’un message d’erreur explicite de votre choix.
+char **map = malloc(sizeof(char *) * nb_line + 1);
+
+y
+| 11111 
+| 1CEP1
+v 11111
+
+x---->
