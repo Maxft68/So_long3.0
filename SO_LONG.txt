@@ -4,9 +4,15 @@ stocker x et y du player OK
 verif contour murs  OK
 verif <= 1 collectible == 1porte  == 1joueur et pas + ET seulement caractere autorise OK
 compter nb de collectible  OK
-si apres flood fill nb de collectible == et si porte accesible a partir du joueur 
-verif porte accesible
-si porte trouver et tout les collectible alors map valide sinon tout parcourir compter une seule fois les collectible et la porte, marquer les emplacement deja passer, !!!! flood fill dans une copie de la map !!
+si apres flood fill nb de collectible == et si porte accesible a partir du joueur  OK
+verif porte accesible OK
+
+
+
+-------------------------------/!\---------------------------
+une fois la dimmension choisi par exemple 200 pixel par 200 pixel alors faire des maps avec maximum 3840/200 de long et 2160/200 de haut
+-------------------------------/!\---------------------------
+
 
 comprendre minilibx
 
@@ -20,3 +26,19 @@ y
 v 11111
 
 x---->
+
+
+mlx_texture_t* mlx_load_png(const char* path);
+mlx_image_t* mlx_texture_to_image(mlx_t* mlx, mlx_texture_t* texture);
+int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y); // afficher
+
+
+
+ETAPE 1 sortir une fenetre vide   mlx init
+
+
+
+cur[2] =
+
+cur[0]; = 8
+cur[1]; = 1

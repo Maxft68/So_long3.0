@@ -6,7 +6,7 @@
 /*   By: mdsiurds <mdsiurds@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:44:28 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/20 18:15:31 by mdsiurds         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:21:19 by mdsiurds         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,57 @@ int main(int argc, char **argv)
 	verif_p_c_e(&game);
 	verif_nb_p_c_e(&game);
 	verif_map_close(&game);
-	verif_all_collectible(t&game);
+	verif_all_valid_paths(&game);
 
-
+	
 	
 	close_all_array(&game);
 }
 
-
-void	verif_all_collectible(t_point *, t_game *game)
+void	verif_all_access(char **map, t_game *game)
 {
-	int size[2] = {game->first_len, game->game_line};     //first len = X game line = Y
-	int begin[2]= {game->pos_x, game->pos_y};			//game line = Y
+	int i;
+	int j;
 	
+	i = 1;
+	while( map[i])
+	{
+		j = 0;
+		while(map[i][j] && map[i][j] != '\n')
+		{
+			if (map[i][j] != '1' && map[i][j] != '0' && map[i][j] != 'V')
+				ft_exit("Error\nInaccessible collectibles or exit\n", game);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	flood_fill(char **map, int x, int y)
+{
+	if (x < 0 || y < 0 || !map[y] || !map[y][x])
+		return ;
+	if (map[y][x] == '1' || map[y][x] == 'V')
+		return ;
+	if (map[y][x] == 'E')
+	{
+		map[y][x] = 'V';
+		return ;
+	}
+	map[y][x] = 'V';
+	flood_fill(map, x + 1, y);
+	flood_fill(map, x - 1, y);
+	flood_fill(map, x, y + 1);
+	flood_fill(map, x, y - 1);
+}
+
+
+void	verif_all_valid_paths(t_game *game)
+{
+	flood_fill(game->map_to_check, game->pos_x, game->pos_y);
+	print_map(game->map_to_check);
+	verif_all_access(game->map_to_check, game);
 	
-	fill(game->map_to_check, size, begin, '1');
 }
 
 
@@ -131,10 +167,10 @@ void	verif_p_c_e(t_game *game)
 			}
 		}
 	}
-	printf("pos x =%d pos y =%d\n", game->pos_x, game->pos_y);
-	printf("nb players= %d\n", game->nb_players);
-	printf("nb rainbow = %d\n", game->nb_rainbow);
-	printf("nb unicorn = %d\n", game->nb_unicorn);
+	printf("pos x =%d pos y =%d\n", game->pos_x, game->pos_y); // suppr
+	printf("nb players= %d\n", game->nb_players);// suppr
+	printf("nb rainbow = %d\n", game->nb_rainbow);// suppr
+	printf("nb unicorn = %d\n", game->nb_unicorn);// suppr
 }
 
 
@@ -227,7 +263,6 @@ void	verif_rectangle(t_game *game)
 		}
 		free(line);
 	}
-	printf("game_line =%d\n", game->game_line);
 	close(game->fd);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mdsiurds <mdsiurds@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:46:41 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/20 18:10:10 by mdsiurds         ###   ########.fr       */
+/*   Updated: 2025/03/21 18:35:08 by mdsiurds         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "./libft/libft/libft.h"
 # include "./libft/printf/ft_printf.h"
 # include "./libft/gnl/get_next_line.h"
+
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -43,7 +44,7 @@ typedef struct s_game
 	int		nb_rainbow;
 	int		nb_players;
 	int		nb_unicorn;
-	
+	mlx
 	
 	t_image	*image;
 	
@@ -64,6 +65,7 @@ void	verif_p_c_e(t_game *game);
 int		is_p_c_e(char c, t_game *game);
 void	verif_nb_p_c_e(t_game *game);
 void	verif_map_close(t_game *game);
-void	verif_all_collectible(t_game *game);
+void	verif_all_valid_paths(t_game *game);
+void	verif_all_access(char **map, t_game *game);
 
 #endif
