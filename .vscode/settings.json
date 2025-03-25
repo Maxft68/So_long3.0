@@ -1,0 +1,9 @@
+{
+	"makefile.launchConfigurations": [
+		{
+			"cwd": "/home/mdsiurds/C/Stud/So_long3.1",
+			"binaryPath": "/home/mdsiurds/C/Stud/So_long3.1/so_long",
+			"binaryArgs": []
+		}
+	]
+}

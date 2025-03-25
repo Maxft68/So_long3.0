@@ -30,7 +30,7 @@ x---->
 
 mlx_texture_t* mlx_load_png(const char* path);
 mlx_image_t* mlx_texture_to_image(mlx_t* mlx, mlx_texture_t* texture);
-int32_t mlx_image_to_window(mlx_t* mlx, mlx_image_t* img, int32_t x, int32_t y); // afficher
+int32_t
 
 
 
