@@ -6,7 +6,7 @@
 /*   By: mdsiurds <mdsiurds@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:44:28 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/25 22:43:47 by mdsiurds         ###   ########.fr       */
+/*   Updated: 2025/03/26 00:08:21 by mdsiurds         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	initialize(t_game *game, char **argv)
 	game->nb_unicorn = 0;
 	game->pos_x = -1;
 	game->pos_y = -1;
+	game->mlx_init = -1;
 }
 
 int main(int argc, char **argv)
@@ -92,6 +93,7 @@ void	begin_mlx(mlx_t *mlx, t_game *game)
 {
 	if (!(mlx = mlx_init(150 * game->first_len, 150 * game->game_line, "so_long", true)))
 		ft_exit("Error\nMlx_init fail\n", game, mlx);
+	game->mlx_init = 1;
 	game->mlx = mlx;
 	initialize_mlx(game);
 	load_textures(mlx, game);
@@ -115,14 +117,14 @@ void	move_or_not(t_game *game, int y, int x)
 		game->player->instances[0].y = game->player->instances[0].y + (y * 150);
 		game->player->instances[0].x = game->player->instances[0].x + (x * 150);
 		printf("Congratulations, you saved the unicorn !!\n");
-		ft_exit("", game, game->mlx);
+		ft_exit_win(game);
 	}
 	if (game->map[p_y + y][px + x] != '1' && game->map[p_y + y][px + x] != 'E')
 	{
 		game->player->instances[0].y = game->player->instances[0].y + (y * 150);
 		game->player->instances[0].x = game->player->instances[0].x + (x * 150);
 		move++;
-		printf("Moves =%d\n", move);
+		printf("Moves = %d\n", move);
 		collectible_or_not(game);
 	}
 	return ;
@@ -200,11 +202,9 @@ void	load_to_windows(mlx_t *mlx, t_game *game)
 		}
 	}
 	mlx_image_to_window(mlx, game->player, game->pos_x * p, game->pos_y * p);
-	// if (game->player->instances->x == game->rainbow->instances[i].x &&
-	// 	game->player->instances->y == game->rainbow->instances[i].y)
-	// 	game->rainbow->instances->enabled = false;
-	// printf("player z : %d", game->rainbow->instances[2].z);
+	
 }
+
 
 
 
@@ -335,21 +335,67 @@ void	verif_p_c_e(t_game *game, mlx_t *mlx)
 			}
 		}
 	}
-	printf("pos x =%d pos y =%d\n", game->pos_x, game->pos_y); // suppr
-	printf("nb players= %d\n", game->nb_players);// suppr
-	printf("nb rainbow = %d\n", game->nb_rainbow);// suppr
-	printf("nb unicorn = %d\n", game->nb_unicorn);// suppr
 }
-
+void	delete_texture_image(t_game *game)
+{
+	if (game->t_floor)
+		mlx_delete_texture(game->t_floor);
+	if (game->t_player)
+		mlx_delete_texture(game->t_player);
+	if (game->t_rainbow)
+		mlx_delete_texture(game->t_rainbow);
+	if (game->t_unicorn)
+		mlx_delete_texture(game->t_unicorn);
+	if (game->t_wall)
+		mlx_delete_texture(game->t_wall);
+	if (game->floor)
+		mlx_delete_image(game->mlx, game->floor);
+	if (game->player)
+		mlx_delete_image(game->mlx, game->player);
+	if (game->rainbow)
+		mlx_delete_image(game->mlx, game->rainbow);
+	if (game->unicorn)
+		mlx_delete_image(game->mlx, game->unicorn);
+	if (game->wall)
+		mlx_delete_image(game->mlx, game->wall);
+}
 
 void	ft_exit(char *error, t_game *game, mlx_t *mlx)
 {
 	ft_putstr_fd(error, 1); //remettre 2 a la fin
 	close_all_array(game);
-	(void)mlx;
+	delete_texture_image(game);
 	
+	if (game->mlx_init == 1)
+	{
+		mlx_close_window(mlx);
+		mlx_terminate(mlx);
+	}
+
 	exit(1);
 }
+
+void	ft_exit_win(t_game *game)
+{
+	close_all_array(game);
+	mlx_delete_image(game->mlx, game->floor);
+	mlx_delete_image(game->mlx, game->player);
+	mlx_delete_image(game->mlx, game->rainbow);
+	mlx_delete_image(game->mlx, game->unicorn);
+	mlx_delete_image(game->mlx, game->wall);
+	mlx_delete_texture(game->t_floor);
+	mlx_delete_texture(game->t_player);
+	mlx_delete_texture(game->t_rainbow);
+	mlx_delete_texture(game->t_unicorn);
+	mlx_delete_texture(game->t_wall);
+
+	
+	mlx_close_window(game->mlx);
+	mlx_terminate(game->mlx);
+	
+	exit(0);
+}
+
 
 void	verif_name_map(char **argv)
 {
@@ -481,8 +527,4 @@ void	fill_the_map(t_game *game, mlx_t *mlx)
 	}
 	game->map[i] = NULL;
 	game->map_to_check[i] = NULL;
-	printf("\n\nmap=\n");
-	print_map(game->map);
-	//printf("\n\nmap_to_check\n");
-	//print_map(game->map_to_check);
 }

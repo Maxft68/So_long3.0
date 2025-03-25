@@ -6,7 +6,7 @@
 /*   By: mdsiurds <mdsiurds@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:46:41 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/25 19:33:02 by mdsiurds         ###   ########.fr       */
+/*   Updated: 2025/03/25 23:52:51 by mdsiurds         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_game
 	int				nb_rainbow;
 	int				nb_players;
 	int				nb_unicorn;
+	int				mlx_init;
 	mlx_texture_t	*t_player;
 	mlx_image_t		*player;
 	mlx_texture_t	*t_rainbow;
@@ -71,6 +72,7 @@ void	free_array(char **array);
 void	close_all_array(t_game *game);
 void	print_map(char **map); // A SUPPRIMER A LA FIN
 void	ft_exit(char *error, t_game *game, mlx_t *mlx);
+void	ft_exit_win(t_game *game);
 void	verif_p_c_e(t_game *game, mlx_t *mlx);
 int		is_p_c_e(char c, t_game *game, mlx_t *mlx);
 void	verif_nb_p_c_e(t_game *game, mlx_t *mlx);
@@ -86,5 +88,6 @@ void	load_to_windows(mlx_t *mlx, t_game *game);
 void	ft_hook(void *game);
 void	move_or_not(t_game *game, int y, int x);
 void	collectible_or_not(t_game *game);
+void	delete_texture_image(t_game *game);
 
 #endif
