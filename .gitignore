@@ -1,0 +1,4 @@
+*.
+*.o
+.vscode
+so_long

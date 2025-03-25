@@ -6,7 +6,7 @@
 /*   By: mdsiurds <mdsiurds@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:46:41 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/25 19:25:40 by mdsiurds         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:33:02 by mdsiurds         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ void	load_images(mlx_t *mlx, t_game *game);
 void	load_to_windows(mlx_t *mlx, t_game *game);
 void	ft_hook(void *game);
 void	move_or_not(t_game *game, int y, int x);
+void	collectible_or_not(t_game *game);
 
 #endif

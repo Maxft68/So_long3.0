@@ -6,7 +6,7 @@
 /*   By: mdsiurds <mdsiurds@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:44:28 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/25 19:26:38 by mdsiurds         ###   ########.fr       */
+/*   Updated: 2025/03/25 22:43:47 by mdsiurds         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,27 +97,62 @@ void	begin_mlx(mlx_t *mlx, t_game *game)
 	load_textures(mlx, game);
 	load_images(mlx, game);
 	load_to_windows(mlx, game);
-	mlx_loop_hook(game->mlx, ft_hook, game);
+	mlx_loop_hook(game->mlx, &ft_hook, game);
 	mlx_loop(mlx);
 }
 
 void	move_or_not(t_game *game, int y, int x)
 {
 	int p_y;
-	int p_x;
+	int px;
 	static int move = 0;
 	
 	p_y = game->player->instances[0].y / 150;
-	p_x = game->player->instances[0].x / 150;
+	px = game->player->instances[0].x / 150;
 
-	if (game->map[p_y + y][p_x + x] != '1')
+	if (game->nb_rainbow == 0 && game->map[p_y + y][px + x] == 'E')
+	{
+		game->player->instances[0].y = game->player->instances[0].y + (y * 150);
+		game->player->instances[0].x = game->player->instances[0].x + (x * 150);
+		printf("Congratulations, you saved the unicorn !!\n");
+		ft_exit("", game, game->mlx);
+	}
+	if (game->map[p_y + y][px + x] != '1' && game->map[p_y + y][px + x] != 'E')
 	{
 		game->player->instances[0].y = game->player->instances[0].y + (y * 150);
 		game->player->instances[0].x = game->player->instances[0].x + (x * 150);
 		move++;
 		printf("Moves =%d\n", move);
+		collectible_or_not(game);
 	}
 	return ;
+}
+
+void	collectible_or_not(t_game *game)
+{
+	int i;
+	int p_y;
+	int p_x;
+	
+	p_y = game->player->instances[0].y;
+	p_x = game->player->instances[0].x;
+
+	i = 0;
+	if (!game->rainbow || !game->rainbow->instances)
+		return ;
+
+	while (i <= game->nb_rainbow && &game->rainbow->instances[i])
+	{
+		if (game->rainbow->instances[i].x == p_x && game->rainbow->instances[i].y == p_y)
+		{
+			game->map[p_y / 150][p_x / 150] = '0';
+			game->rainbow->instances[i].enabled = false;
+			game->rainbow->instances[i].x = -1;
+			game->rainbow->instances[i].y = -1;
+			game->nb_rainbow--;
+		}
+		i++;
+	}
 }
 
 void	ft_hook(void *param)
@@ -139,6 +174,8 @@ void	ft_hook(void *param)
 		last_press_time = mlx_get_time();
 	}
 }
+
+
 
 void	load_to_windows(mlx_t *mlx, t_game *game)
 {
@@ -220,7 +257,7 @@ void	flood_fill(char **map, int x, int y)
 void	verif_all_valid_paths(t_game *game, mlx_t *mlx)
 {
 	flood_fill(game->map_to_check, game->pos_x, game->pos_y);
-	print_map(game->map_to_check);
+	//print_map(game->map_to_check);
 	verif_all_access(game->map_to_check, game, mlx);
 	
 }
@@ -444,8 +481,8 @@ void	fill_the_map(t_game *game, mlx_t *mlx)
 	}
 	game->map[i] = NULL;
 	game->map_to_check[i] = NULL;
-	printf("\n\nmap\n");
+	printf("\n\nmap=\n");
 	print_map(game->map);
-	printf("\n\nmap_to_check\n");
-	print_map(game->map_to_check);
+	//printf("\n\nmap_to_check\n");
+	//print_map(game->map_to_check);
 }

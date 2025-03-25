@@ -4,6 +4,11 @@
 			"cwd": "/home/mdsiurds/C/Stud/So_long3.1",
 			"binaryPath": "/home/mdsiurds/C/Stud/So_long3.1/so_long",
 			"binaryArgs": []
+		},
+		{
+			"cwd": "/home/mdsiurds/Desktop/So_long3.2",
+			"binaryPath": "/home/mdsiurds/Desktop/So_long3.2/so_long",
+			"binaryArgs": ["first_map.ber"]
 		}
 	]
 }
