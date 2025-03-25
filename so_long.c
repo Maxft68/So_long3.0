@@ -6,7 +6,7 @@
 /*   By: mdsiurds <mdsiurds@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:44:28 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/25 18:46:28 by mdsiurds         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:26:38 by mdsiurds         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,7 @@ int main(int argc, char **argv)
 	initialize(&game, argv);
 	verif_open(&game, argv);
 	verif_rectangle(&game);
-	fill_the_map(&game);
-	// verif_p_c_e(game);
-	// verif_nb_p_c_e(game);   // = verif_after_fill
-	// verif_map_close(game);
-	// verif_all_valid_paths(game);
+	fill_the_map(&game, mlx);
 	verif_after_fill(&game, mlx);
 	begin_mlx(mlx, &game);
 	
@@ -70,11 +66,11 @@ void	initialize_mlx(t_game *game)
 
 void	load_textures(mlx_t *mlx, t_game *game)
 {
-	game->t_floor = mlx_load_png("./floor_small.png");
-	game->t_rainbow = mlx_load_png("./rainbow_small.png");
-	game->t_player = mlx_load_png("./player_small.png");
-	game->t_wall = mlx_load_png("./wall_small.png");
-	game->t_unicorn = mlx_load_png("./the_door_small.png");
+	game->t_floor = mlx_load_png("./floor150.png");
+	game->t_rainbow = mlx_load_png("./rainbow150.png");
+	game->t_player = mlx_load_png("./player150.png");
+	game->t_wall = mlx_load_png("./wall150.png");
+	game->t_unicorn = mlx_load_png("./the_door150.png");
 	if (!game->t_floor || !game->t_rainbow || !game->t_player || !game->t_wall
 		|| !game->t_unicorn)
 		ft_exit("Error\nLoading texture fail\n", game, mlx);
@@ -133,42 +129,14 @@ void	ft_hook(void *param)
 	if (mlx_get_time() - last_press_time >= 0.15)
 	{
 		if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
-		{
 			move_or_not(game, -1, 0);
-			// if (game->map[(game->player->instances[0].y / 50) - 1][game->player->instances[0].x / 50] != '1')
-			// {
-			// 	game->player->instances[0].y -= 50;
-			// 	move++;
-			// 	printf("Moves =%d\n", move);
-			// }
-		}
 		if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
-		{
 			move_or_not(game, 1, 0);
-			// game->player->instances[0].y += 50;
-			// move++;
-			// printf("Moves =%d\n", move);
-		}
 		if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-		{
 			move_or_not(game, 0, -1);
-			// game->player->instances[0].x -= 50;
-			// move++;
-			// printf("Moves =%d\n", move);
-		}	
 		if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-		{
 			move_or_not(game, 0, 1);
-			// game->player->instances[0].x += 50;
-			// move++;
-			// printf("Moves =%d\n", move);
-		}
 		last_press_time = mlx_get_time();
-		// if (moved)
-		// {
-		// 	move++;
-		// 	last_press_time = mlx_get_time();
-		// }
 	}
 }
 
@@ -176,29 +144,25 @@ void	load_to_windows(mlx_t *mlx, t_game *game)
 {
 	int y;
 	int x;
-
+	int p;
+	
+	p = 150;
 	y = -1;
 	while (game->map[++y])
 	{
 		x = -1;
 		while(game->map[y][++x] && game->map[y][x] != '\n')
 		{
-			// if (game->map[y][x] == 'P')
-			// 	mlx_image_to_window(mlx, game->player, x * 50, y *50);
 			mlx_image_to_window(mlx, game->floor, x * 150, y * 150);
 			if (game->map[y][x] == 'C')
 				mlx_image_to_window(mlx, game->rainbow, x * 150, y * 150);
-			if (game->map[y][x] == 'E')
-			{
-				mlx_image_to_window(mlx, game->unicorn, x * 150, y * 150);
-			}
 			if (game->map[y][x] == '1')
 				mlx_image_to_window(mlx, game->wall, x * 150, y * 150);
-			//if (!mlx_image_to_window(mlx, game->player, x, y)) delete texture + image + nlx terminate
+			if (game->map[y][x] == 'E')
+				mlx_image_to_window(mlx, game->unicorn, x * 150, y * 150);
 		}
 	}
-	mlx_image_to_window(mlx, game->player, game->pos_x * 150, game->pos_y * 150);
-	printf("player z : %d", game->player->instances->z);
+	mlx_image_to_window(mlx, game->player, game->pos_x * p, game->pos_y * p);
 	// if (game->player->instances->x == game->rainbow->instances[i].x &&
 	// 	game->player->instances->y == game->rainbow->instances[i].y)
 	// 	game->rainbow->instances->enabled = false;
@@ -450,7 +414,7 @@ void print_map(char **map)
 	}
 	printf("\n");
 }
-void	fill_the_map(t_game *game)
+void	fill_the_map(t_game *game, mlx_t *mlx)
 {
 	char *map;
 	int i;
@@ -465,10 +429,7 @@ void	fill_the_map(t_game *game)
 		exit(1);
 	game->map_to_check = malloc(sizeof(char *) * (game->game_line + 1));
 	if (!game->map_to_check)
-	{
-		free_array(game->map);
-		exit(1);
-	}
+		ft_exit("Error\nMalloc failure\n",game, mlx);
 	i = 0;
 	map = get_next_line(game->fd);
 	if (!map)

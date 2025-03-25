@@ -6,7 +6,7 @@
 /*   By: mdsiurds <mdsiurds@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:46:41 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/25 18:36:38 by mdsiurds         ###   ########.fr       */
+/*   Updated: 2025/03/25 19:25:40 by mdsiurds         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	initialize(t_game *game, char **argv);
 void	verif_name_map(char **argv);
 void	verif_open(t_game *game, char **argv);
 void	verif_rectangle(t_game *game);
-void	fill_the_map(t_game *game);
+void	fill_the_map(t_game *game, mlx_t *mlx);
 void	free_array(char **array);
 void	close_all_array(t_game *game);
 void	print_map(char **map); // A SUPPRIMER A LA FIN
