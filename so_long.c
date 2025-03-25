@@ -6,7 +6,7 @@
 /*   By: mdsiurds <mdsiurds@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:44:28 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/25 16:42:49 by mdsiurds         ###   ########.fr       */
+/*   Updated: 2025/03/25 18:46:28 by mdsiurds         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ if (!game->floor || !game->rainbow || !game->player || !game->wall
 	
 void	begin_mlx(mlx_t *mlx, t_game *game)
 {
-	if (!(mlx = mlx_init(50 * game->first_len, 50 * game->game_line, "so_long", true)))
+	if (!(mlx = mlx_init(150 * game->first_len, 150 * game->game_line, "so_long", true)))
 		ft_exit("Error\nMlx_init fail\n", game, mlx);
 	game->mlx = mlx;
 	initialize_mlx(game);
@@ -105,40 +105,63 @@ void	begin_mlx(mlx_t *mlx, t_game *game)
 	mlx_loop(mlx);
 }
 
+void	move_or_not(t_game *game, int y, int x)
+{
+	int p_y;
+	int p_x;
+	static int move = 0;
+	
+	p_y = game->player->instances[0].y / 150;
+	p_x = game->player->instances[0].x / 150;
+
+	if (game->map[p_y + y][p_x + x] != '1')
+	{
+		game->player->instances[0].y = game->player->instances[0].y + (y * 150);
+		game->player->instances[0].x = game->player->instances[0].x + (x * 150);
+		move++;
+		printf("Moves =%d\n", move);
+	}
+	return ;
+}
+
 void	ft_hook(void *param)
 {
 	t_game *game = (t_game *)param;
-	static int move = 0;
 	static double last_press_time = 0;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game->mlx);
 	if (mlx_get_time() - last_press_time >= 0.15)
 	{
-		// double temps = mlx_get_time();
-		// printf("%10.2f\n", temps);
 		if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
 		{
-			game->player->instances[0].y -= 50;
-			move++;
-			printf("Moves =%d\n", move);
+			move_or_not(game, -1, 0);
+			// if (game->map[(game->player->instances[0].y / 50) - 1][game->player->instances[0].x / 50] != '1')
+			// {
+			// 	game->player->instances[0].y -= 50;
+			// 	move++;
+			// 	printf("Moves =%d\n", move);
+			// }
 		}
 		if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
 		{
-			game->player->instances[0].y += 50;
-			move++;
-			printf("Moves =%d\n", move);
+			move_or_not(game, 1, 0);
+			// game->player->instances[0].y += 50;
+			// move++;
+			// printf("Moves =%d\n", move);
 		}
 		if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		{
-			game->player->instances[0].x -= 50;
-			move++;
-			printf("Moves =%d\n", move);
+			move_or_not(game, 0, -1);
+			// game->player->instances[0].x -= 50;
+			// move++;
+			// printf("Moves =%d\n", move);
 		}	
 		if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 		{
-			game->player->instances[0].x += 50;
-			move++;
-			printf("Moves =%d\n", move);
+			move_or_not(game, 0, 1);
+			// game->player->instances[0].x += 50;
+			// move++;
+			// printf("Moves =%d\n", move);
 		}
 		last_press_time = mlx_get_time();
 		// if (moved)
@@ -162,19 +185,19 @@ void	load_to_windows(mlx_t *mlx, t_game *game)
 		{
 			// if (game->map[y][x] == 'P')
 			// 	mlx_image_to_window(mlx, game->player, x * 50, y *50);
-			mlx_image_to_window(mlx, game->floor, x * 50, y * 50);
+			mlx_image_to_window(mlx, game->floor, x * 150, y * 150);
 			if (game->map[y][x] == 'C')
-				mlx_image_to_window(mlx, game->rainbow, x * 50, y * 50);
+				mlx_image_to_window(mlx, game->rainbow, x * 150, y * 150);
 			if (game->map[y][x] == 'E')
 			{
-				mlx_image_to_window(mlx, game->unicorn, x * 50, y * 50);
+				mlx_image_to_window(mlx, game->unicorn, x * 150, y * 150);
 			}
 			if (game->map[y][x] == '1')
-				mlx_image_to_window(mlx, game->wall, x * 50, y * 50);
+				mlx_image_to_window(mlx, game->wall, x * 150, y * 150);
 			//if (!mlx_image_to_window(mlx, game->player, x, y)) delete texture + image + nlx terminate
 		}
 	}
-	mlx_image_to_window(mlx, game->player, game->pos_x * 50, game->pos_y *50);
+	mlx_image_to_window(mlx, game->player, game->pos_x * 150, game->pos_y * 150);
 	printf("player z : %d", game->player->instances->z);
 	// if (game->player->instances->x == game->rainbow->instances[i].x &&
 	// 	game->player->instances->y == game->rainbow->instances[i].y)
