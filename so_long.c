@@ -6,7 +6,7 @@
 /*   By: mdsiurds <mdsiurds@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:44:28 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/25 16:22:10 by mdsiurds         ###   ########.fr       */
+/*   Updated: 2025/03/25 16:42:49 by mdsiurds         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,13 +155,13 @@ void	load_to_windows(mlx_t *mlx, t_game *game)
 	int x;
 
 	y = -1;
-	while(game->map[++y])
+	while (game->map[++y])
 	{
 		x = -1;
 		while(game->map[y][++x] && game->map[y][x] != '\n')
 		{
-			if (game->map[y][x] == 'P')
-				mlx_image_to_window(mlx, game->player, x * 50, y *50);
+			// if (game->map[y][x] == 'P')
+			// 	mlx_image_to_window(mlx, game->player, x * 50, y *50);
 			mlx_image_to_window(mlx, game->floor, x * 50, y * 50);
 			if (game->map[y][x] == 'C')
 				mlx_image_to_window(mlx, game->rainbow, x * 50, y * 50);
@@ -174,6 +174,12 @@ void	load_to_windows(mlx_t *mlx, t_game *game)
 			//if (!mlx_image_to_window(mlx, game->player, x, y)) delete texture + image + nlx terminate
 		}
 	}
+	mlx_image_to_window(mlx, game->player, game->pos_x * 50, game->pos_y *50);
+	printf("player z : %d", game->player->instances->z);
+	// if (game->player->instances->x == game->rainbow->instances[i].x &&
+	// 	game->player->instances->y == game->rainbow->instances[i].y)
+	// 	game->rainbow->instances->enabled = false;
+	// printf("player z : %d", game->rainbow->instances[2].z);
 }
 
 
