@@ -6,7 +6,7 @@
 /*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:44:28 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/26 17:36:38 by maxoph           ###   ########.fr       */
+/*   Updated: 2025/03/26 22:08:08 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	initialize(t_game *game, char **argv)
 	game->first_len = -10;
 	game->game_line = 1;
 	game->nb_rainbow = 0;
+	game->nb_copy_rainbow = 0;
 	game->nb_players = 0;
 	game->nb_unicorn = 0;
 	game->pos_x = -1;
@@ -134,14 +135,13 @@ void	collectible_or_not(t_game *game)
 	int	i;
 	int	p_y;
 	int	p_x;
-	
 
 	p_y = game->player->instances[0].y;
 	p_x = game->player->instances[0].x;
 	i = 0;
 	if (!game->rainbow || !game->rainbow->instances)
 		return ;
-	while (i < game->nb_rainbow)
+	while (i <= game->nb_copy_rainbow)
 	{
 		if (game->rainbow->instances[i].x == p_x
 			&& game->rainbow->instances[i].y == p_y)
@@ -335,7 +335,10 @@ void	verif_p_c_e(t_game *game, mlx_t *mlx)
 					game->pos_y = i;
 				}
 				else if (game->map[i][j] == 'C')
+				{
 					game->nb_rainbow++;
+					game->nb_copy_rainbow++;
+				}
 				else if (game->map[i][j] == 'E')
 					game->nb_unicorn++;
 			}
