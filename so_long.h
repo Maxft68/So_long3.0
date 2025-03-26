@@ -6,7 +6,7 @@
 /*   By: mdsiurds <mdsiurds@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:46:41 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/25 23:52:51 by mdsiurds         ###   ########.fr       */
+/*   Updated: 2025/03/26 00:42:29 by mdsiurds         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
-
+# define P 150
 
 typedef struct s_image
 {
