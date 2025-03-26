@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdsiurds <mdsiurds@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:44:28 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/26 02:24:08 by mdsiurds         ###   ########.fr       */
+/*   Updated: 2025/03/26 17:36:38 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,13 +134,14 @@ void	collectible_or_not(t_game *game)
 	int	i;
 	int	p_y;
 	int	p_x;
+	
 
 	p_y = game->player->instances[0].y;
 	p_x = game->player->instances[0].x;
 	i = 0;
 	if (!game->rainbow || !game->rainbow->instances)
 		return ;
-	while (i <= game->nb_rainbow && &game->rainbow->instances[i])
+	while (i < game->nb_rainbow)
 	{
 		if (game->rainbow->instances[i].x == p_x
 			&& game->rainbow->instances[i].y == p_y)
@@ -165,18 +166,18 @@ void	ft_hook(void *param)
 		mlx_close_window(game->mlx);
 	if (mlx_get_time() - last_press_time >= 0.15)
 	{
-		if (mlx_is_key_down(game->mlx, MLX_KEY_UP)
-			|| mlx_is_key_down(game->mlx, MLX_KEY_DOWN)
-			|| mlx_is_key_down(game->mlx, MLX_KEY_LEFT)
-			|| mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		if (mlx_is_key_down(game->mlx, MLX_KEY_W)
+			|| mlx_is_key_down(game->mlx,MLX_KEY_S)
+			|| mlx_is_key_down(game->mlx, MLX_KEY_A)
+			|| mlx_is_key_down(game->mlx, MLX_KEY_D))
 			last_press_time = mlx_get_time();
-		if (mlx_is_key_down(game->mlx, MLX_KEY_UP))
+		if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 			move_or_not(game, -1, 0);
-		if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN))
+		if (mlx_is_key_down(game->mlx, MLX_KEY_S))
 			move_or_not(game, 1, 0);
-		if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+		if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 			move_or_not(game, 0, -1);
-		if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 			move_or_not(game, 0, 1);
 	}
 }
@@ -222,7 +223,9 @@ void	verif_all_access(char **map, t_game *game, mlx_t *mlx)
 	int	i;
 	int	j;
 
-	i = 1;
+	i = 0;
+	if (!map)
+		ft_exit("Error\nMap is NULL", game, mlx);
 	while (map[i])
 	{
 		j = 0;
@@ -258,7 +261,6 @@ void	flood_fill(char **map, int x, int y)
 void	verif_all_valid_paths(t_game *game, mlx_t *mlx)
 {
 	flood_fill(game->map_to_check, game->pos_x, game->pos_y);
-	// print_map(game->map_to_check);
 	verif_all_access(game->map_to_check, game, mlx);
 }
 
