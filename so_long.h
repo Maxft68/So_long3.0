@@ -6,7 +6,7 @@
 /*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:46:41 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/26 22:06:58 by maxoph           ###   ########.fr       */
+/*   Updated: 2025/03/26 22:39:29 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
-# define P 150
+# define P 50
 
 typedef struct s_image
 {

@@ -6,7 +6,7 @@
 /*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:44:28 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/26 22:09:32 by maxoph           ###   ########.fr       */
+/*   Updated: 2025/03/26 22:41:07 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ void	initialize_mlx(t_game *game)
 
 void	load_textures(mlx_t *mlx, t_game *game)
 {
-	game->t_floor = mlx_load_png("./floor150.png");
-	game->t_rainbow = mlx_load_png("./rainbow150.png");
-	game->t_player = mlx_load_png("./player150.png");
-	game->t_wall = mlx_load_png("./wall150.png");
-	game->t_unicorn = mlx_load_png("./the_door150.png");
+	game->t_floor = mlx_load_png("./floor_small.png");
+	game->t_rainbow = mlx_load_png("./rainbow_small.png");
+	game->t_player = mlx_load_png("./player_small.png");
+	game->t_wall = mlx_load_png("./wall_small.png");
+	game->t_unicorn = mlx_load_png("./the_door_small.png");
 	if (!game->t_floor || !game->t_rainbow || !game->t_player || !game->t_wall
 		|| !game->t_unicorn)
 		ft_exit("Error\nLoading texture fail\n", game, mlx);
