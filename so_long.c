@@ -6,7 +6,7 @@
 /*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:44:28 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/26 22:09:16 by maxoph           ###   ########.fr       */
+/*   Updated: 2025/03/26 22:09:32 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	collectible_or_not(t_game *game)
 {
 	int	i;
 	int	p_y;
-	int	p_x
+	int	p_x;
 
 	p_y = game->player->instances[0].y;
 	p_x = game->player->instances[0].x;
