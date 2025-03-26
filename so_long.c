@@ -6,7 +6,7 @@
 /*   By: mdsiurds <mdsiurds@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:44:28 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/26 01:47:49 by mdsiurds         ###   ########.fr       */
+/*   Updated: 2025/03/26 02:24:08 by mdsiurds         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	main(int argc, char **argv)
 	initialize(&game, argv);
 	verif_open(&game, argv);
 	verif_rectangle(&game);
+	close(game.fd);
 	fill_the_map(&game, mlx);
 	verif_after_fill(&game, mlx);
 	begin_mlx(mlx, &game);
@@ -112,6 +113,8 @@ void	move_or_not(t_game *game, int y, int x)
 	{
 		game->player->instances[0].y = game->player->instances[0].y + (y * P);
 		game->player->instances[0].x = game->player->instances[0].x + (x * P);
+		move++;
+		printf("Moves = %d\n", move);
 		printf("Congratulations, you saved the unicorn !!\n");
 		ft_exit_win(game);
 	}
@@ -449,13 +452,10 @@ void	verif_rectangle(t_game *game)
 
 	game->fd = open(game->name_map, O_RDONLY);
 	if (game->fd == -1)
-	{
-		ft_putstr_fd("Error\nNot possible to open the map\n", 1);
-		exit(1);
-	}
+		ft_exit("Error\nNot possible to open the map\n", game, game->mlx);
 	line = get_next_line(game->fd);
-	if (!line)
-		exit(1);
+	if(!line)
+		ft_exit("Error\nGet_next_line failed\n", game, game->mlx);
 	game->first_len = ft_strlen(line);
 	if (line[game->first_len - 1] == '\n')
 		game->first_len--;
@@ -463,21 +463,18 @@ void	verif_rectangle(t_game *game)
 	while ((line = get_next_line(game->fd)))
 	{
 		if (!line)
-			exit(1);
+			ft_exit("Error\nGet_next_line failed\n", game, game->mlx);
 		game->game_line++;
 		game->len = ft_strlen(line);
 		if (line[game->len - 1] == '\n')
 			game->len--;
 		if (game->first_len != game->len)
 		{
-			ft_putstr_fd("Error\nPlease, use a rectangle map\n", 1);
-			// remettre sur 2 a la fin
+			ft_exit("Error\nPlease, use a rectangle map\n", game, game->mlx);
 			free(line);
-			exit(1);
 		}
 		free(line);
 	}
-	close(game->fd);
 }
 
 void	print_map(char **map)
@@ -494,6 +491,7 @@ void	print_map(char **map)
 	}
 	printf("\n");
 }
+
 void	fill_the_map(t_game *game, mlx_t *mlx)
 {
 	char	*map;
@@ -501,25 +499,21 @@ void	fill_the_map(t_game *game, mlx_t *mlx)
 
 	game->fd = open(game->name_map, O_RDONLY);
 	if (game->fd == -1)
-	{
-		ft_putstr_fd("Error\nNot possible to open the map\n", 1);
-		exit(1);
-	}
+		ft_exit("Error\nNot possible to open the map\n", game, mlx);
 	game->map = malloc(sizeof(char *) * (game->game_line + 1));
-	if (!game->map)
-		exit(1);
 	game->map_to_check = malloc(sizeof(char *) * (game->game_line + 1));
-	if (!game->map_to_check)
+	if (!game->map_to_check || !game->map)
 		ft_exit("Error\nMalloc failure\n", game, mlx);
 	i = 0;
 	map = get_next_line(game->fd);
 	if (!map)
-		exit(1);
+		ft_exit("Error get_next_line", game, mlx);
 	while (map)
 	{
 		game->map[i] = ft_strdup(map);
 		game->map_to_check[i] = ft_strdup(map);
-		i++;
+		if (!game->map[i] || !game->map_to_check[i++])
+			ft_exit("Error\nStrdup failure\n", game, mlx);
 		free(map);
 		map = get_next_line(game->fd);
 	}
