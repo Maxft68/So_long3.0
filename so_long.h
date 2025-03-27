@@ -6,7 +6,7 @@
 /*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:46:41 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/26 22:39:29 by maxoph           ###   ########.fr       */
+/*   Updated: 2025/03/27 14:39:11 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct s_game
 	int				fd;
 	char			*name_map;
 	int				len;
-	int				first_len; // X
-	int				game_line; // Y
+	int				first_len;
+	int				game_line;
 	int				pos_x;
 	int				pos_y;
 	int				nb_rainbow;
