@@ -6,7 +6,7 @@
 /*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:46:41 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/27 14:39:11 by maxoph           ###   ########.fr       */
+/*   Updated: 2025/03/29 19:56:31 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_game
 	int				nb_players;
 	int				nb_unicorn;
 	int				mlx_init;
+	//double			time;
 	mlx_texture_t	*t_player;
 	mlx_image_t		*player;
 	mlx_texture_t	*t_rainbow;
@@ -64,31 +65,20 @@ typedef struct s_game
 }			t_game;
 
 
-void	initialize(t_game *game, char **argv);
-void	verif_name_map(char **argv);
-void	verif_open(t_game *game, char **argv);
-void	verif_rectangle(t_game *game);
-void	fill_the_map(t_game *game, mlx_t *mlx);
-void	free_array(char **array);
-void	close_all_array(t_game *game);
-void	print_map(char **map); // A SUPPRIMER A LA FIN
-void	ft_exit(char *error, t_game *game, mlx_t *mlx);
-void	ft_exit_win(t_game *game);
-void	verif_p_c_e(t_game *game, mlx_t *mlx);
-int		is_p_c_e(char c, t_game *game, mlx_t *mlx);
-void	verif_nb_p_c_e(t_game *game, mlx_t *mlx);
-void	verif_map_close(t_game *game, mlx_t *mlx);
-void	verif_all_valid_paths(t_game *game, mlx_t *mlx);
-void	verif_all_access(char **map, t_game *game, mlx_t *mlx);
-void	verif_after_fill(t_game *game, mlx_t *mlx);
-void	begin_mlx(mlx_t *mlx, t_game *game);
-void	load_textures(mlx_t *mlx, t_game *game);
-void	initialize_mlx(t_game *game);
-void	load_images(mlx_t *mlx, t_game *game);
-void	load_to_windows(mlx_t *mlx, t_game *game);
-void	ft_hook(void *game);
-void	move_or_not(t_game *game, int y, int x);
-void	collectible_or_not(t_game *game);
-void	delete_texture_image(t_game *game);
+void			initialize(t_game *game, char **argv);
+void			verif_name_map(char **argv);
+void			verif_open(t_game *game, char **argv);
+void			verif_rectangle(t_game *game);
+void			fill_the_map(t_game *game, mlx_t *mlx);
+void			ft_exit(char *error, t_game *game, mlx_t *mlx);
+void			ft_exit_win(t_game *game);
+void			verif_all_valid_paths(t_game *game, mlx_t *mlx);
+void			verif_after_fill(t_game *game, mlx_t *mlx);
+void			begin_mlx(mlx_t *mlx, t_game *game);
+void			load_textures(mlx_t *mlx, t_game *game);
+void			initialize_mlx(t_game *game);
+void			load_images(mlx_t *mlx, t_game *game);
+void			load_to_windows(mlx_t *mlx, t_game *game);
+void			ft_keyboard(void *game);
 
 #endif

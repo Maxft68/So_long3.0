@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mdsiurds <mdsiurds@student.42.fr>          +#+  +:+       +#+         #
+#    By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/18 22:35:59 by mdsiurds          #+#    #+#              #
-#    Updated: 2025/03/25 17:00:13 by mdsiurds         ###   ########.fr        #
+#    Updated: 2025/03/29 19:42:18 by maxoph           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
-SRC = so_long.c
+SRC = so_long.c textures_and_images.c fill_the_map.c verif.c start_mlx.c\
+use_keyboard.c valid_paths.c verif_after_fill.c go_exit.c
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 OBJ_DIR = ./temp
 CC = cc
