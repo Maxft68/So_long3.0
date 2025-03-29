@@ -6,7 +6,7 @@
 /*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:44:28 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/29 19:56:43 by maxoph           ###   ########.fr       */
+/*   Updated: 2025/03/29 22:11:30 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	initialize(t_game *game, char **argv)
 	game->pos_x = -1;
 	game->pos_y = -1;
 	game->mlx_init = -1;
-	//game->time = -1;
 }
 
 void	initialize_mlx(t_game *game)
