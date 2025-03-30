@@ -6,7 +6,7 @@
 /*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 19:22:27 by maxoph            #+#    #+#             */
-/*   Updated: 2025/03/29 19:40:06 by maxoph           ###   ########.fr       */
+/*   Updated: 2025/03/30 22:33:07 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,16 @@ static	void	close_all_array(t_game *game)
 
 static	void	delete_texture_image(t_game *game)
 {
+	if (game->floor)
+	mlx_delete_image(game->mlx, game->floor);
+	if (game->player)
+	mlx_delete_image(game->mlx, game->player);
+	if (game->rainbow)
+	mlx_delete_image(game->mlx, game->rainbow);
+	if (game->unicorn)
+	mlx_delete_image(game->mlx, game->unicorn);
+	if (game->wall)
+	mlx_delete_image(game->mlx, game->wall);
 	if (game->t_floor)
 		mlx_delete_texture(game->t_floor);
 	if (game->t_player)
@@ -51,25 +61,15 @@ static	void	delete_texture_image(t_game *game)
 		mlx_delete_texture(game->t_unicorn);
 	if (game->t_wall)
 		mlx_delete_texture(game->t_wall);
-	if (game->floor)
-		mlx_delete_image(game->mlx, game->floor);
-	if (game->player)
-		mlx_delete_image(game->mlx, game->player);
-	if (game->rainbow)
-		mlx_delete_image(game->mlx, game->rainbow);
-	if (game->unicorn)
-		mlx_delete_image(game->mlx, game->unicorn);
-	if (game->wall)
-		mlx_delete_image(game->mlx, game->wall);
 }
 
 void	ft_exit(char *error, t_game *game, mlx_t *mlx)
 {
 	ft_putstr_fd(error, 1); // remettre 2 a la fin
 	close_all_array(game);
-	delete_texture_image(game);
-	if (game->mlx_init == 1)
+	if (game->mlx_init == 1 && mlx)
 	{
+		delete_texture_image(game);
 		mlx_close_window(mlx);
 		mlx_terminate(mlx);
 	}

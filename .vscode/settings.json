@@ -8,7 +8,14 @@
 		{
 			"cwd": "/home/mdsiurds/Desktop/So_long3.2",
 			"binaryPath": "/home/mdsiurds/Desktop/So_long3.2/so_long",
-			"binaryArgs": ["first_map.ber"]
+			"binaryArgs": [
+				"first_map.ber"
+			]
+		},
+		{
+			"cwd": "/home/maxoph/Bureau/C/so_long3.3",
+			"binaryPath": "/home/maxoph/Bureau/C/so_long3.3/so_long",
+			"binaryArgs": []
 		}
 	]
 }

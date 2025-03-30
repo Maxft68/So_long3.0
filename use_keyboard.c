@@ -6,7 +6,7 @@
 /*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:43:14 by maxoph            #+#    #+#             */
-/*   Updated: 2025/03/29 21:32:56 by maxoph           ###   ########.fr       */
+/*   Updated: 2025/03/30 19:39:40 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static	void	collectible_or_not(t_game *game)
 	int	p_y;
 	int	p_x;
 
+	i = 0;
 	p_y = game->player->instances[0].y;
 	p_x = game->player->instances[0].x;
-	i = 0;
 	if (!game->rainbow || !game->rainbow->instances)
 		return ;
-	while (i <= game->nb_copy_rainbow)
+	while (i < game->nb_copy_rainbow)
 	{
 		if (game->rainbow->instances[i].x == p_x
 			&& game->rainbow->instances[i].y == p_y)

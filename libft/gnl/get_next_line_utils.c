@@ -6,12 +6,11 @@
 /*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 11:46:27 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/19 15:23:06 by maxoph           ###   ########.fr       */
+/*   Updated: 2025/03/30 19:06:51 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
 
 char	*ft_strjoin_gnl(char *s1, char *s2)
 {

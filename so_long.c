@@ -6,7 +6,7 @@
 /*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:44:28 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/29 22:11:30 by maxoph           ###   ########.fr       */
+/*   Updated: 2025/03/30 22:21:57 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	initialize(t_game *game, char **argv)
 {
+	if (argv && argv[1])
+		game->name_map = argv[1];
 	game->map = NULL;
 	game->map_to_check = NULL;
-	game->name_map = argv[1];
 	game->fd = -1;
 	game->len = -10;
 	game->first_len = -10;
@@ -47,16 +48,15 @@ void	initialize_mlx(t_game *game)
 int	main(int argc, char **argv)
 {
 	t_game	game;
-	mlx_t	*mlx;
-
-	mlx = NULL;
+	
 	if (argc != 2)
 		return (1);
-	verif_name_map(argv);
 	initialize(&game, argv);
+	initialize_mlx(&game);
+	verif_name_map(argv);
 	verif_open(&game, argv);
 	verif_rectangle(&game);
-	fill_the_map(&game, mlx);
-	verif_after_fill(&game, mlx);
-	begin_mlx(mlx, &game);
+	fill_the_map(&game, NULL);
+	verif_after_fill(&game, NULL);
+	begin_mlx(NULL, &game);
 }

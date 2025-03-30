@@ -6,7 +6,7 @@
 /*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:46:41 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/29 19:56:31 by maxoph           ###   ########.fr       */
+/*   Updated: 2025/03/30 19:23:16 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
-# define P 50
-
-typedef struct s_image
-{
-	int		bidule;
-
-	
-	
-}			t_image;
+# define P 75
 
 typedef struct s_game
 {
@@ -47,7 +39,6 @@ typedef struct s_game
 	int				nb_players;
 	int				nb_unicorn;
 	int				mlx_init;
-	//double			time;
 	mlx_texture_t	*t_player;
 	mlx_image_t		*player;
 	mlx_texture_t	*t_rainbow;
@@ -59,11 +50,7 @@ typedef struct s_game
 	mlx_texture_t	*t_unicorn;
 	mlx_image_t		*unicorn;
 	mlx_t			*mlx;
-	
-	t_image	*image;
-	
 }			t_game;
-
 
 void			initialize(t_game *game, char **argv);
 void			verif_name_map(char **argv);
