@@ -6,7 +6,7 @@
 /*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:43:14 by maxoph            #+#    #+#             */
-/*   Updated: 2025/03/31 13:07:48 by maxoph           ###   ########.fr       */
+/*   Updated: 2025/03/31 14:11:26 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	move_or_not(t_game *game, int y, int x)
 		game->player->instances[0].x = game->player->instances[0].x + (x * P);
 		move++;
 		printf("Moves = %d\n", move);
-		printf("Congratulations, you saved the unicorn in %dms!!\n",
+		printf("Congratulations, you saved the unicorn in %dms\nWR is 14811\n",
 			(int)(mlx_get_time() * 1000));
 		ft_exit_win(game);
 	}
