@@ -6,7 +6,7 @@
 /*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 22:44:28 by mdsiurds          #+#    #+#             */
-/*   Updated: 2025/03/30 22:21:57 by maxoph           ###   ########.fr       */
+/*   Updated: 2025/03/31 13:09:32 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	initialize_mlx(t_game *game)
 int	main(int argc, char **argv)
 {
 	t_game	game;
-	
+
 	if (argc != 2)
 		return (1);
 	initialize(&game, argv);

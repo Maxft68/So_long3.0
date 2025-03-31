@@ -6,7 +6,7 @@
 /*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:23:58 by maxoph            #+#    #+#             */
-/*   Updated: 2025/03/30 23:09:43 by maxoph           ###   ########.fr       */
+/*   Updated: 2025/03/31 12:51:44 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static	void	window_close(void *thing)
 {
-	t_game *game = (t_game *)thing;
+	t_game	*game;
+
+	game = (t_game *)thing;
 	ft_exit_win(game);
 }
 

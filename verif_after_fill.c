@@ -6,13 +6,13 @@
 /*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:53:39 by maxoph            #+#    #+#             */
-/*   Updated: 2025/03/29 19:08:58 by maxoph           ###   ########.fr       */
+/*   Updated: 2025/03/31 13:08:35 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static	int	is_p_c_e(char c, t_game *game, mlx_t *mlx)
+static int	is_p_c_e(char c, t_game *game, mlx_t *mlx)
 {
 	if (c == 'P' || c == 'C' || c == 'E' || c == '1' || c == '0' || c == '\n')
 		return (1);
@@ -23,7 +23,7 @@ static	int	is_p_c_e(char c, t_game *game, mlx_t *mlx)
 	}
 }
 
-static	void	verif_p_c_e(t_game *game, mlx_t *mlx)
+static void	verif_p_c_e(t_game *game, mlx_t *mlx)
 {
 	int	i;
 	int	j;
@@ -51,24 +51,21 @@ static	void	verif_p_c_e(t_game *game, mlx_t *mlx)
 	}
 }
 
-static	void	verif_nb_p_c_e(t_game *game, mlx_t *mlx)
+static void	verif_nb_p_c_e(t_game *game, mlx_t *mlx)
 {
 	if (game->nb_players != 1 || game->nb_rainbow <= 0 || game->nb_unicorn != 1)
 	{
 		if (game->nb_players != 1)
-			ft_putstr_fd("Error\nThe map need 1 player, no more no less\n", 1);
-		// fd 2 a remettre a la fin
+			ft_putstr_fd("Error\nThe map need 1 player, no more no less\n", 2);
 		if (game->nb_unicorn != 1)
-			ft_putstr_fd("Error\nThe map need 1 exit, no more no less\n", 1);
-		// fd 2a remettre a la fin
+			ft_putstr_fd("Error\nThe map need 1 exit, no more no less\n", 2);
 		if (game->nb_rainbow <= 0)
-			ft_putstr_fd("Error\nThe map need at least, 1 collectible\n", 1);
-		// fd 2a remettre a la fin
+			ft_putstr_fd("Error\nThe map need at least, 1 collectible\n", 2);
 		ft_exit("", game, mlx);
 	}
 }
 
-static	void	verif_map_close(t_game *game, mlx_t *mlx)
+static void	verif_map_close(t_game *game, mlx_t *mlx)
 {
 	int	i;
 	int	j;

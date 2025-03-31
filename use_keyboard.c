@@ -6,13 +6,13 @@
 /*   By: maxoph <maxoph@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:43:14 by maxoph            #+#    #+#             */
-/*   Updated: 2025/03/30 19:39:40 by maxoph           ###   ########.fr       */
+/*   Updated: 2025/03/31 13:07:48 by maxoph           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static	void	collectible_or_not(t_game *game)
+static void	collectible_or_not(t_game *game)
 {
 	int	i;
 	int	p_y;
@@ -38,7 +38,7 @@ static	void	collectible_or_not(t_game *game)
 	}
 }
 
-static	void	move_or_not(t_game *game, int y, int x)
+static void	move_or_not(t_game *game, int y, int x)
 {
 	int			p_y;
 	int			px;
@@ -70,15 +70,14 @@ void	ft_keyboard(void *param)
 {
 	t_game			*game;
 	static double	last_press_time = 0;
-	
+
 	game = (t_game *)param;
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		ft_exit_win(game);
 	if (mlx_get_time() - last_press_time >= 0.15)
 	{
-		if (mlx_is_key_down(game->mlx, MLX_KEY_W)
-			|| mlx_is_key_down(game->mlx,MLX_KEY_S)
-			|| mlx_is_key_down(game->mlx, MLX_KEY_A)
+		if (mlx_is_key_down(game->mlx, MLX_KEY_W) || mlx_is_key_down(game->mlx,
+				MLX_KEY_S) || mlx_is_key_down(game->mlx, MLX_KEY_A)
 			|| mlx_is_key_down(game->mlx, MLX_KEY_D))
 			last_press_time = mlx_get_time();
 		if (mlx_is_key_down(game->mlx, MLX_KEY_W))
